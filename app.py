@@ -9,6 +9,21 @@ st.set_page_config(
     page_icon=":microscope:",
 )
 
+bg_save = """
+<style>
+[data-testid="stAppViewContainer"] {
+    background-image: radial-gradient(#444444 1px, transparent 1px);
+    background-size: 30px 30px;
+    color: white;
+}
+
+
+</style>
+"""
+
+st.markdown(bg_save, unsafe_allow_html=True)
+
+
 @st.cache_resource
 def load_model():
     model = tf.keras.models.load_model('pneumonia_model.h5')
@@ -24,15 +39,15 @@ def predict(image):
     prediction = model.predict(img_array)
     return prediction
 
-
-
 # Título del Sidebar
 st.sidebar.image("logowhite.png", use_column_width=True)
 
+st.sidebar.markdown("""
+    <hr>
+""", unsafe_allow_html=True)
 st.sidebar.subheader("Menu de Navegación: ")
 # Opciones del Sidebar
 opcion = st.sidebar.radio("", ("Inicio", "Análisis", "Acerca de"))
-
 
 
 # Contenido de cada página
@@ -108,3 +123,12 @@ elif opcion == "Acerca de":
     2. Suba una imagen de rayos X.
     3. Espere unos momentos para recibir el diagnóstico.
     """)
+
+
+
+st.sidebar.markdown("""
+    <hr>
+    <footer>
+        <p>Repositorio en <a href="https://github.com/yhparq" target="_blank">GitHub</a>.</p>
+    </footer>
+""", unsafe_allow_html=True)
