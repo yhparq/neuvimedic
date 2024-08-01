@@ -16,8 +16,6 @@ bg_save = """
     background-size: 30px 30px;
     color: white;
 }
-
-
 </style>
 """
 
@@ -66,7 +64,7 @@ if opcion == "Inicio":
     """)
     st.subheader("Cómo Empezar")
     st.write("""
-    1. Ve a la sección "Cargar Archivo" en la barra lateral.
+    1. Ve a la sección "Análisis" en la barra lateral.
     2. Sube una imagen de rayos X del paciente.
     3. Espera unos momentos para recibir el diagnóstico.
     """)
@@ -79,13 +77,13 @@ elif opcion == "Análisis":
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Imagen cargada', use_column_width=True)
-        st.write("Clasificando...")
+        st.write("Procesando...")
         time.sleep(0.5)
         prediction = predict(image)
         # st.write(f"Predicción: {'El pasiente presenta neumonia viral' if prediction[0][0] > 0.5 else 'El pasiente se encuentra sin neumonia'}")
 
-        result = 'El pasiente presenta neumonia viral' if prediction[0][0] > 0.5 else 'El pasiente se encuentra sin neumonia'
-        background_color = 'orange' if result == 'Neumonía' else 'orange'
+        result = 'El pasiente presenta neumonia viral' if prediction[0][0] > 0.5 else 'El pasiente no presenta neumonia viral'
+        background_color = 'red' if result == 'Neumonía' else 'green'
         
         # Mostrar el resultado con fondo de color
         st.markdown(f"""
@@ -129,6 +127,6 @@ elif opcion == "Acerca de":
 st.sidebar.markdown("""
     <hr>
     <footer>
-        <p>Repositorio en <a href="https://github.com/yhparq" target="_blank">GitHub</a>.</p>
+        <p>Desarrolado por: <a href="https://github.com/yhparq" target="_blank">yhparq</a>.</p>
     </footer>
 """, unsafe_allow_html=True)
